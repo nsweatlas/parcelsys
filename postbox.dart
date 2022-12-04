@@ -1,37 +1,56 @@
 import 'postoffice.dart';
 
-class PostBox{
-  static const int _length = 5;
+class PostBox {
+  static const int _length = 5; //maximum storage 5 for each house number
   int _houseNum = 0; //storage key using house number
-  List<dynamic> parcels = [_length]; //5 maximum storage // Map<int, dynamic> houseStorage = { 101:'parcel' };
-  Duration _days = const Duration(days: 0);
+  Map<dynamic, Duration> _parcels = {};
 
-  PostBox(){
-  }
-
-  PostBox.house(int houseNum){
+  PostBox(int houseNum) {
     this._houseNum = houseNum;
   }
-  
+
+  PostBox.parcel(int houseNum, dynamic parcel, int days) {
+    if (_parcels.isEmpty || _parcels.length < _length) {
+      //check empty and with maximum 5
+      _parcels[parcel] = Duration(days: days);
+    }
+  }
+
   //setter and getters
-  void set HouseNum (int houseNum){
+  void set HouseNum(int houseNum) {
     this._houseNum = houseNum;
   }
-  
-  void set Days (Duration days){
-    this._days = days;
+
+  void set ParcelList(Map<dynamic, Duration> parcellist) {
+    this._parcels.addAll(parcellist);
   }
 
-  int get HouseNum{
+  int get HouseNum {
     return this._houseNum;
   }
 
-  Duration get Days{
-    return this._days;
+  Map<dynamic, Duration> get ParcelList {
+    return _parcels;
   }
 
-  isEmpty(){
-    
+  //check parcel storage is empty
+  bool isEmpty() {
+    if (_parcels.isEmpty) return true;
+    return false;
   }
 
+  void checkDuration() {
+    _parcels.forEach((parcel, days) {
+      if (days > Duration(days: 2)) returnParcel();
+    });
+  }
+
+  // bool checkParcel(dynamic parcel, Duration days) {
+  //   if (_parcels.containsKey(parcel))
+  //     _parcels.
+  //   else
+  //     return false;
+  // }
+
+  void returnParcel() {}
 }
