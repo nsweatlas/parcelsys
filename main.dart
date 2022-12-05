@@ -4,11 +4,10 @@ import 'postoffice.dart';
 void main() {
   num _input;
 
-  print("Post Office Management System\n"
+  print("\nPost Office Management System\n"
       "1 - View parcels in storage\n"
       "2 - Add parcels to storage\n"
-      "0 - Exit\n");
-
+      "0 - Exit");
   takeInput("main");
 }
 
@@ -23,11 +22,12 @@ void page1() {
   // _parcelsystem[0].parcels[1];
 
   print("\nView parcels in storage");
-  postOffice.displayparcel();
+  postOffice.displayParcel();
+  print("1 - Back to menu\n"
+      "2 - Add parcels to storage\n"
+      "0 - Exit");
   takeInput("p1");
 }
-
-void page1_add() {}
 
 void page2() {
   exit;
@@ -39,7 +39,7 @@ void takeInput(String pgname) {
   bool isNum = false;
   do {
     try {
-      stdout.write("Enter number: ");
+      stdout.write("\nEnter number: ");
       _input = stdin.readLineSync();
 
       //not required, input error handling
@@ -57,10 +57,10 @@ void takeInput(String pgname) {
     case 1:
       if (pgname == "main")
         page1();
-      else if (pgname == "p1") page1_add();
+      else if (pgname == "p1") main();
       break;
     case 2:
-      if (pgname == "main") page2();
+      if (pgname == "main" || pgname == "p1") page2();
       break;
   }
 }

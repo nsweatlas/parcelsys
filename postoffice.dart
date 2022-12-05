@@ -14,11 +14,19 @@ class PostOffice {
 
   PostOffice() {}
 
-  void displayparcel() {
+  void displayParcel() {
     print("House Number\t\tParcels");
     // _houseNum.forEach(print);
-    _parcelStorage.forEach((postbox) {
-      print("$postbox.HouseNum\t\t$postbox.ParcelList");
+    _parcelStorage.forEach((index) {
+      PostBox postbox = index;
+      int hNum = postbox.HouseNum;
+      Map<dynamic, Duration> plist = postbox.ParcelList;
+      print("$hNum\t\t");
+      plist.forEach((key, value) {
+        print("$key $value");
+      });
     });
   }
+
+  void addParcel() {}
 }
