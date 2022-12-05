@@ -15,7 +15,7 @@ class PostOffice {
   PostOffice() {}
 
   void displayParcel() {
-    print("House Number\t\tParcels");
+    print("House Number\t\tParcels\tDays");
     // _houseNum.forEach(print);
     _parcelStorage.forEach((index) {
       PostBox postbox = index;
@@ -23,7 +23,7 @@ class PostOffice {
       Map<dynamic, Duration> plist = postbox.ParcelList;
       print("$hNum\t\t");
       plist.forEach((key, value) {
-        print("$key $value");
+        print("$key\t$value");
       });
     });
   }
