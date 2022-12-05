@@ -7,6 +7,7 @@ void main() {
   print("\nPost Office Management System\n"
       "1 - View parcels in storage\n"
       "2 - Add parcels to storage\n"
+      "3 - View returned parcels\n"
       "0 - Exit");
   takeInput("main");
 }
@@ -15,11 +16,6 @@ void page1() {
   num _input;
 
   PostOffice postOffice = PostOffice();
-  // test: print(postOffice.parcelStorage.length);
-  // List<PostBox> _parcelsystem = [];
-  // _parcelsystem.length=_length;
-  // List<PostBox> _parcelreturn = [];
-  // _parcelsystem[0].parcels[1];
 
   print("\nView parcels in storage");
   postOffice.displayParcel();

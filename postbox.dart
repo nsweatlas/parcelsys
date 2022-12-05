@@ -45,12 +45,5 @@ class PostBox {
     });
   }
 
-  // bool checkParcel(dynamic parcel, Duration days) {
-  //   if (_parcels.containsKey(parcel))
-  //     _parcels.
-  //   else
-  //     return false;
-  // }
-
   void returnParcel() {}
 }
