@@ -1,15 +1,24 @@
 import 'postbox.dart';
 
 class PostOffice {
-  static const int _length = 30; //maximum storage 30
-  List<int> _houseNum = [];
-  //= List.filled(_length, 0);
-  // deprecated: houseNum = new List(_length) // [_length]
-  // generate list of 30 postboxes to store and return (over 2 days)
-  List<PostBox> _parcelStorage = [];
-  // List.generate(_length, (houseNum) => PostBox((houseNum)),growable: true);
-  List<PostBox> _parcelReturn =
-      List.generate(_length, (houseNum) => PostBox((houseNum)), growable: true);
+  static const int _storelength = 30; //maximum storage 30
+  List<int> _houseNum =
+      List.generate(_storelength, (index) => index + 1, growable: false);
+  // use late keyword to initialize at runtime instead of compile time
+  late List<PostBox> _parcelStorage = List.generate(
+      _storelength, (index) => PostBox(_houseNum.elementAt(index)),
+      growable: false);
+  late List<PostBox> _parcelReturn = List.generate(
+      _storelength, (index) => PostBox(_houseNum.elementAt(index)),
+      growable: false);
 
   PostOffice() {}
+
+  void displayparcel() {
+    print("House Number\t\tParcels");
+    // _houseNum.forEach(print);
+    _parcelStorage.forEach((postbox) {
+      print("$postbox.HouseNum\t\t$postbox.ParcelList");
+    });
+  }
 }

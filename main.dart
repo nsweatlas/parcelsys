@@ -1,5 +1,4 @@
 import 'dart:io';
-import '../fluttercodes/parceltest.dart';
 import 'postoffice.dart';
 
 void main() {
@@ -23,15 +22,18 @@ void page1() {
   // List<PostBox> _parcelreturn = [];
   // _parcelsystem[0].parcels[1];
 
-  print("View parcels in storage");
+  print("\nView parcels in storage");
+  postOffice.displayparcel();
   takeInput("p1");
 }
+
+void page1_add() {}
 
 void page2() {
   exit;
 }
 
-void takeInput(String pagename) {
+void takeInput(String pgname) {
   dynamic _input;
   num _numinput = 0;
   bool isNum = false;
@@ -47,12 +49,18 @@ void takeInput(String pagename) {
       print("Input is not a number.");
     }
   } while (!isNum);
-  if (_numinput == 0) exit;
-  if (_numinput == 1) {
-    if (pagename == "main") page1();
-    if (pagename == "p1") page1();
-  }
-  if (_numinput == 2) {
-    if (pagename == "main") page2();
+
+  switch (_numinput) {
+    case 0:
+      exit;
+      break;
+    case 1:
+      if (pgname == "main")
+        page1();
+      else if (pgname == "p1") page1_add();
+      break;
+    case 2:
+      if (pgname == "main") page2();
+      break;
   }
 }
