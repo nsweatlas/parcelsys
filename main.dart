@@ -28,28 +28,37 @@ void main_2(PostOffice postOffice) {
 void page1(PostOffice postOffice) {
   num _input;
 
-  print("\nView parcels in storage");
+  print("\n--------------------------------"
+      "\nView parcels in storage");
   postOffice.displayParcel(postOffice.StorageList);
   print("\n1 - Back to menu\n"
       "2 - Add parcels to storage\n"
+      "3 - View returned parcels\n"
       "0 - Exit");
   pageInput("p1", postOffice);
 }
 
 // Add parcels
 void page2(PostOffice postOffice) {
-  print("\nAdd parcels, and duration of parcel in storage (in days)");
+  print("\n--------------------------------"
+      "\nAdd parcels, and duration of parcel in storage (in days)");
   //postOffice.addParcel();
   parcelListInput(postOffice);
   print("\n1 - Back to menu\n"
+      "2 - View parcels in storage\n"
+      "3 - View returned parcels\n"
       "0 - Exit");
+  pageInput("p2", postOffice);
 }
 
 // View returned parcels
 void page3(PostOffice postOffice) {
-  print("\nView parcels in storage");
+  print("\n--------------------------------"
+      "\nView parcels in storage");
   postOffice.displayParcel(postOffice.ReturnedList);
   print("\n1 - Back to menu\n"
+      "2 - Add parcels to storage\n"
+      "3 - View parcels in storage\n"
       "0 - Exit");
   pageInput("p3", postOffice);
   exit;
@@ -61,7 +70,7 @@ void pageInput(String pgname, PostOffice postOffice) {
   bool isNum = false;
   do {
     try {
-      stdout.write("\nEnter number: ");
+      stdout.write("\nEnter page: ");
       _input = stdin.readLineSync();
 
       //not required, input error handling
@@ -84,10 +93,13 @@ void pageInput(String pgname, PostOffice postOffice) {
         main_2(postOffice); // 'Return' to main menu
       break;
     case 2:
-      if (pgname == "main" || pgname == "p1") page2(postOffice); // Add parcels
+      if (pgname == "main" || pgname == "p1" || pgname == "p3")
+        page2(postOffice); // Add parcels
+      else if (pgname == "p2") page1(postOffice);
       break;
     case 3:
-      if (pgname == "main") page3(postOffice); // View returned parcels
+      if (pgname == "main" || pgname == "p1" || pgname == "p2")
+        page3(postOffice); // View returned parcels
       break;
   }
 }
@@ -95,7 +107,7 @@ void pageInput(String pgname, PostOffice postOffice) {
 void parcelListInput(PostOffice postOffice) {
   //parcel Map name is confusing
   Map<dynamic, Duration> parcelList = {};
-
+  int _houseNum = 0;
   dynamic _input;
   int _numInput;
   dynamic parcel;
@@ -106,7 +118,18 @@ void parcelListInput(PostOffice postOffice) {
 
   do {
     try {
-      stdout.write("Enter parcel code: ");
+      stdout.write("\nEnter house number: ");
+      _input = stdin.readLineSync();
+
+      //not required, input error handling
+      isNum = int.tryParse(_input) != null;
+      _houseNum = int.parse(_input);
+    } catch (ex) {
+      print("Invalid input: Input is not a number.");
+    }
+
+    try {
+      stdout.write("\nEnter parcel code: ");
       _input = stdin.readLineSync();
 
       //not required, input error handling
@@ -129,7 +152,7 @@ void parcelListInput(PostOffice postOffice) {
     }
   } while (!isNull && !isNum);
 
-  print("Parcel code: $parcel, days: ${days.inDays}");
-  //parcelList.putIfAbsent(parcel, () => days);
-  //postOffice.addParcel(parcelList);
+  print("House number: $_houseNum, code: $parcel, days: ${days.inDays}");
+  parcelList.putIfAbsent(parcel, () => days);
+  postOffice.addParcel(_houseNum, parcelList);
 }

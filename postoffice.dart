@@ -31,28 +31,45 @@ class PostOffice {
     return this._parcelReturn;
   }
 
-  void displayParcel(List<PostBox> plist) {
+  void displayParcel(List<PostBox> boxlist) {
     print("House Number\t\tParcels\t\tDays");
-    plist.forEach((index) {
+    boxlist.forEach((index) {
       PostBox postbox = index;
       int hNum = postbox.HouseNum;
+      int dayInt;
       Map<dynamic, Duration> plist = postbox.ParcelList;
-      print("$hNum\t\t");
+      print("$hNum");
       plist.forEach((parcel, days) {
-        print("$parcel"
+        dayInt = days.inDays;
+        print("\t"
+            "$parcel"
             "\t\t"
-            "$days");
+            "$dayInt");
       });
     });
   }
 
-  void checkDuration() {
-    _parcelList.forEach((parcel, days) {
-      if (days > Duration(days: 2)) returnParcel(parcel);
+  void checkDuration(List<PostBox> boxlist) {
+    boxlist.forEach((postbox) {
+      Map<dynamic, Duration> plist = postbox.ParcelList;
+      plist.forEach((parcel, days) {
+        if (days > Duration(days: 2)) returnParcel(parcel);
+      });
     });
   }
 
-  void returnParcel(dynamic parcel) {}
+  void returnParcel(dynamic parcel) {
+    // Alia
+  }
 
-  void addParcel(Map<dynamic, Duration> pList) {}
+  void addParcel(int houseNum, Map<dynamic, Duration> pList) {
+    // if more than 2 days duration check/ parcel return to return storage
+    // Alia
+    if (pList.containsValue(Duration(days: 0)) ||
+        pList.containsValue(Duration(days: 1))) {
+      _parcelStorage.elementAt(houseNum - 1).ParcelList = pList;
+    } else {
+      _parcelReturn.elementAt(houseNum - 1).ParcelList = pList;
+    }
+  }
 }
