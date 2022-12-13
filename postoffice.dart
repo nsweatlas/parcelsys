@@ -46,5 +46,13 @@ class PostOffice {
     });
   }
 
+  void checkDuration() {
+    _parcelList.forEach((parcel, days) {
+      if (days > Duration(days: 2)) returnParcel(parcel);
+    });
+  }
+
+  void returnParcel(dynamic parcel) {}
+
   void addParcel(Map<dynamic, Duration> pList) {}
 }

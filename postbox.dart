@@ -38,12 +38,4 @@ class PostBox {
     if (_parcelList.isEmpty) return true;
     return false;
   }
-
-  void checkDuration() {
-    _parcelList.forEach((parcel, days) {
-      if (days > Duration(days: 2)) returnParcel(parcel);
-    });
-  }
-
-  void returnParcel(dynamic parcel) {}
 }
