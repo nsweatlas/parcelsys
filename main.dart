@@ -130,6 +130,6 @@ void parcelListInput(PostOffice postOffice) {
   } while (!isNull && !isNum);
 
   print("Parcel code: $parcel, days: ${days.inDays}");
-  parcelList.putIfAbsent(parcel, () => days);
-  postOffice.addParcel(parcelList);
+  //parcelList.putIfAbsent(parcel, () => days);
+  //postOffice.addParcel(parcelList);
 }
