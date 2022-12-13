@@ -49,19 +49,6 @@ class PostOffice {
     });
   }
 
-  void checkDuration(List<PostBox> boxlist) {
-    boxlist.forEach((postbox) {
-      Map<dynamic, Duration> plist = postbox.ParcelList;
-      plist.forEach((parcel, days) {
-        if (days > Duration(days: 2)) returnParcel(parcel);
-      });
-    });
-  }
-
-  void returnParcel(dynamic parcel) {
-    // Alia
-  }
-
   void addParcel(int houseNum, Map<dynamic, Duration> pList) {
     // if more than 2 days duration check/ parcel return to return storage
     // Alia

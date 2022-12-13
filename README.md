@@ -14,6 +14,6 @@ The Parcel Management System requires 30 empty slots for storage, with each stor
   - Class/Objects: PostBox
   - Output: main (page1), PostOffice displayParcel
 * Alia
-  - Input: PostOffice addParcel, returnParcel
+  - Input: PostOffice addParcel (+ check duration and return to return storage)
   - Class/Objects: PostOffice
-  - Output: main (page2), PostBox returnParcel, PostOffice addParcel
+  - Output: main (page2), PostOffice addParcel
