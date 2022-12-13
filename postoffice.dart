@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'postbox.dart';
 
 class PostOffice {
@@ -12,21 +13,38 @@ class PostOffice {
       _storelength, (index) => PostBox(_houseNum.elementAt(index)),
       growable: false);
 
-  PostOffice() {}
+  // PostOffice() {} // redundant
 
-  void displayParcel() {
-    print("House Number\t\tParcels\tDays");
-    // _houseNum.forEach(print);
-    _parcelStorage.forEach((index) {
+  set StorageList(List<PostBox> list) {
+    this._parcelStorage = list;
+  }
+
+  set ReturnedList(List<PostBox> list) {
+    this._parcelReturn = list;
+  }
+
+  List<PostBox> get StorageList {
+    return this._parcelStorage;
+  }
+
+  List<PostBox> get ReturnedList {
+    return this._parcelReturn;
+  }
+
+  void displayParcel(List<PostBox> plist) {
+    print("House Number\t\tParcels\t\tDays");
+    plist.forEach((index) {
       PostBox postbox = index;
       int hNum = postbox.HouseNum;
       Map<dynamic, Duration> plist = postbox.ParcelList;
       print("$hNum\t\t");
-      plist.forEach((key, value) {
-        print("$key\t$value");
+      plist.forEach((parcel, days) {
+        print("$parcel"
+            "\t\t"
+            "$days");
       });
     });
   }
 
-  void addParcel() {}
+  void addParcel(Map<dynamic, Duration> pList) {}
 }

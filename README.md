@@ -10,7 +10,7 @@ The Parcel Management System requires 30 empty slots for storage, with each stor
 ### Tasks:
 
 * Syaza
-  - Input: main (takeInput function)
+  - Input: main (takeInput function: re-input on exception)
   - Class/Objects: PostOffice
   - Output: main (page1), PostOffice displayParcel
 * Alia
