@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'postbox.dart';
 import 'postoffice.dart';
 
 void main() {
@@ -113,36 +114,59 @@ void parcelListInput(PostOffice postOffice) {
   dynamic parcel;
   Duration days = Duration.zero;
   //dynamic _dayInput;
-  bool isNull = true;
   bool isNum = false;
+  bool isFull = false;
+  bool notValid = false;
+  bool isNull = true;
+  bool isYN = false;
 
   do {
     try {
+      isFull = false;
       stdout.write("\nEnter house number: ");
       _input = stdin.readLineSync();
 
       //not required, input error handling
       isNum = int.tryParse(_input) != null;
       _houseNum = int.parse(_input);
+      PostBox postBox = postOffice.StorageList.elementAt(_houseNum - 1);
+      if ((_houseNum >= 1 && _houseNum <= postOffice.Length) &&
+          (postBox.ParcelList.length >= postBox.Length)) {
+        print("Parcel storage for house number $_houseNum is full.");
+        isFull = true;
+      } else if (_houseNum < 1 || _houseNum > postOffice.Length) {
+        notValid = true;
+        throw Exception();
+      }
     } catch (ex) {
-      print("Invalid input: Input is not a number.");
+      if (_houseNum < 1 || _houseNum > postOffice.Length)
+        print("Invalid input: Input must be 1 - 30.");
+      else
+        print("Invalid input: $_input is not a number.");
     }
+  } while (!isNum || isFull || notValid);
 
+  do {
     try {
       stdout.write("\nEnter parcel code: ");
       _input = stdin.readLineSync();
 
       //not required, input error handling
-      isNull = _input != null;
-      parcel = _input;
-    } catch (ex) {
-      print("Invalid input: Input should not be null.");
-    }
+      isNull = _input.toString().isEmpty;
+      if (!isNull)
+        parcel = _input;
+      else {
+        print("Invalid input: Input should not be null.");
+        throw Exception();
+      }
+    } catch (ex) {}
+  } while (isNull);
 
+  do {
     try {
       stdout.write("\nEnter duration of parcel in storage, in days: ");
       _input = stdin.readLineSync();
-
+      isNum = false;
       //not required, input error handling
       isNum = int.tryParse(_input) != null;
       _numInput = int.parse(_input);
@@ -150,9 +174,25 @@ void parcelListInput(PostOffice postOffice) {
     } catch (ex) {
       print("Invalid input: Input is not a number.");
     }
-  } while (!isNull && !isNum);
+  } while (!isNum);
 
-  print("House number: $_houseNum, code: $parcel, days: ${days.inDays}");
+  print("House number: $_houseNum, code: $parcel, day(s): ${days.inDays}");
   parcelList.putIfAbsent(parcel, () => days);
   postOffice.addParcel(_houseNum, parcelList);
+
+  do {
+    try {
+      stdout.write("\nAdd more parcels (Y/N)? ");
+      _input = stdin.readLineSync();
+
+      //not required, input error handling
+      if (_input == 'y' || _input == 'Y' || _input == 'n' || _input == 'N') {
+        isYN = true;
+        if (_input == 'y' || _input == 'Y') parcelListInput(postOffice);
+      } else {
+        isYN = false;
+        print("Invalid input: $_input is not 'Y' or 'N'.");
+      }
+    } catch (ex) {}
+  } while (!isYN);
 }

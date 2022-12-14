@@ -25,6 +25,10 @@ class PostBox {
     this._parcelList.addAll(parcellist);
   }
 
+  int get Length {
+    return _length;
+  }
+
   int get HouseNum {
     return this._houseNum;
   }
