@@ -42,4 +42,10 @@ class PostBox {
     if (_parcelList.isEmpty) return true;
     return false;
   }
+
+//check parcel storage is full
+  bool isFull() {
+    if (_parcelList.length == _length) return true;
+    return false;
+  }
 }

@@ -116,7 +116,7 @@ void parcelListInput(PostOffice postOffice) {
   //dynamic _dayInput;
   bool isNum = false;
   bool isFull = false;
-  bool notValid = false;
+  bool notValid = true;
   bool isNull = true;
   bool isYN = false;
 
@@ -129,19 +129,19 @@ void parcelListInput(PostOffice postOffice) {
       //not required, input error handling
       isNum = int.tryParse(_input) != null;
       _houseNum = int.parse(_input);
+      // instantiate to use class' isFull method
       PostBox postBox = postOffice.StorageList.elementAt(_houseNum - 1);
-      if ((_houseNum >= 1 && _houseNum <= postOffice.Length) &&
-          (postBox.ParcelList.length >= postBox.Length)) {
-        print("Parcel storage for house number $_houseNum is full.");
-        isFull = true;
-      } else if (_houseNum < 1 || _houseNum > postOffice.Length) {
-        notValid = true;
-        throw Exception();
+      isFull = postBox.isFull();
+      if (_houseNum >= 1 || _houseNum <= postOffice.Length) {
+        notValid = false;
+        if (isFull)
+          print("Parcel storage for house number $_houseNum is full.");
       }
     } catch (ex) {
-      if (_houseNum < 1 || _houseNum > postOffice.Length)
+      if (_houseNum < 1 || _houseNum > postOffice.Length) {
         print("Invalid input: Input must be 1 - 30.");
-      else
+        //notValid = true;
+      } else
         print("Invalid input: $_input is not a number.");
     }
   } while (!isNum || isFull || notValid);

@@ -27,6 +27,10 @@ class PostOffice {
     return _storelength;
   }
 
+  List<int> get HouseNumList {
+    return this._houseNum;
+  }
+
   List<PostBox> get StorageList {
     return this._parcelStorage;
   }
@@ -56,7 +60,7 @@ class PostOffice {
   void addParcel(int houseNum, Map<dynamic, Duration> pList) {
     // if more than 2 days duration check/ parcel return to return storage
     PostBox postBox = _parcelStorage.elementAt(houseNum - 1);
-    if (postBox.ParcelList.length <= postBox.Length) {
+    if (postBox.isEmpty() || postBox.ParcelList.length <= postBox.Length) {
       if (pList.containsValue(Duration(days: 0)) ||
           pList.containsValue(Duration(days: 1)) ||
           pList.containsValue(Duration(days: 2))) {
