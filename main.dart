@@ -138,9 +138,9 @@ void parcelListInput(PostOffice postOffice) {
           print("Parcel storage for house number $_houseNum is full.");
       }
     } catch (ex) {
+      //not required, input error handling
       if (_houseNum < 1 || _houseNum > postOffice.Length) {
         print("Invalid input: Input must be 1 - 30.");
-        //notValid = true;
       } else
         print("Invalid input: $_input is not a number.");
     }
